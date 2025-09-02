@@ -1,0 +1,75 @@
+PORTSCAN-IN-PYTHON
+
+Automated port scanner in Python. This educational script iterates through all TCP ports on a specified host, checking which ports are open. Created solely for learning purposes, it demonstrates Python networking basics, socket programming, loops, and user input handling.
+
+⚠️ For educational purposes only • Developed by M!ss s3c
+
+📝 Guide: Creating and Running Your First Portscan in Python
+
+1. Create the script file
+
+In the terminal, create the file:
+
+nano portscan.py
+
+2. Add the Python code
+
+Paste the following code:
+
+#!/usr/bin/python3
+# Educational Port Scanner in Python
+# Usage: python3 portscan.py <host>
+
+import socket
+import sys
+
+# Check if the host was provided
+if len(sys.argv) != 2:
+    print("Usage: python3 portscan.py <host>")
+    sys.exit(1)
+
+host = sys.argv[1]
+
+print(f"Starting port scan on {host}...\n")
+
+# Iterate through all TCP ports
+for port in range(1, 65536):
+    meusocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    meusocket.settimeout(0.5)  # avoid long hangs
+    result = meusocket.connect_ex((host, port))
+    if result == 0:
+        print(f"Port {port} [OPEN]")
+    meusocket.close()
+
+
+⚠️ Note: This script should not be used for unauthorized scanning. It is intended for learning purposes only.
+
+3. Give execution permission (optional)
+
+If you want to run it directly as a program:
+
+chmod +x portscan.py
+
+4. Run the script
+python3 portscan.py 127.0.0.1
+
+5. Example output
+Starting port scan on 127.0.0.1...
+
+Port 22 [OPEN]
+Port 80 [OPEN]
+Port 443 [OPEN]
+
+👉 What you learned here
+
+import socket → Python networking library.
+
+sys.argv → command-line arguments.
+
+connect_ex() → checks if the port is open (returns 0 if yes).
+
+for loop → iterates through all ports.
+
+settimeout() → prevents hanging on unresponsive ports.
+
+Always close() the socket → to release system resources.
